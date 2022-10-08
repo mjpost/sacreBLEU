@@ -17,6 +17,11 @@ sacrelogger = logging.getLogger('sacrebleu')
 
 
 class Score:
+
+    # https://docs.python.org/3/reference/datamodel.html#slots
+    # __slots__ minimizes memory usage when many objs are created e.g. clseval.ClassMeasure
+    __slots__ = ('name', 'score', '_mean', '_ci', '_verbose')
+
     """A base score class to derive from.
 
     :param name: The name of the underlying metric.

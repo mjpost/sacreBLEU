@@ -1,6 +1,7 @@
-from typing import Sequence, Optional
+from typing import Sequence, Optional, Union
+from functools import partial
 
-from .metrics import BLEU, CHRF, TER, BLEUScore, CHRFScore, TERScore
+from .metrics import METRICS, BLEU, CHRF, TER, BLEUScore, CHRFScore, TERScore, ClassifierEval, MultiClassMeasure
 
 
 ######################################################################
@@ -203,3 +204,40 @@ def sentence_ter(hypothesis: str,
         asian_support=asian_support,
         case_sensitive=case_sensitive)
     return metric.sentence_score(hypothesis, references)
+
+
+def corpus_f(hypotheses: Union[str, Sequence[str]],
+            references: Union[str, Sequence[Sequence[str]]],
+            average: str,
+            smooth_value=ClassifierEval.DEF_SMOOTH_VAL,
+            beta=ClassifierEval.DEF_F_BETA,
+            force=False,
+            lowercase=False,
+            tokenize=ClassifierEval.TOKENIZER_DEFAULT) -> MultiClassMeasure:
+    """
+    Computes F-measure on a corpus
+    :param average: what kind of averaging to use for obtaining corpus level performance from types.
+         Options: macro, micro
+    :param hypotheses: The system stream (a sequence of segments)
+    :param references: A list of one or more reference streams (each a sequence of segments)
+    :param smooth_value: The smoothing value for `add-k` method. set smooth_value=0 to disable.
+                 Does not influence macro-average
+    :param f_beta: β value that weighs recall in F-measure
+    :param force: Ignore data that looks already tokenized
+    :param lowercase: Lowercase the data
+    :param tokenize: The tokenizer to use
+    :return: a `MultiClassMeasure` object
+    """
+
+    # limiting to these special cases because others are not tested
+    assert average in ('macro', 'micro')
+    args = dict(smooth_value=smooth_value, force=force,
+                lowercase=lowercase, tokenize=tokenize, beta=beta)
+    metric = METRICS[average.upper() + 'F'](**args)
+    return metric.corpus_score(hypotheses, references)
+
+"""Computes Macro-F measure on a corpus. Refer to `corpus_f()` for additional arguments."""
+corpus_macrof = partial(corpus_f, average='macro')
+
+"""Computes Micro-F measure on a corpus. Refer to `corpus_f()` for additional arguments."""
+corpus_microf = partial(corpus_f, average='micro')

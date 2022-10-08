@@ -29,3 +29,4 @@ from .metrics import BLEU, CHRF, TER  # noqa: F401
 from .compat import corpus_bleu, raw_corpus_bleu, sentence_bleu  # noqa: F401
 from .compat import corpus_chrf, sentence_chrf  # noqa: F401
 from .compat import corpus_ter, sentence_ter  # noqa: F401
+from .compat import corpus_f, corpus_macrof, corpus_microf # noqa: F401

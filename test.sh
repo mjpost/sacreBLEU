@@ -60,6 +60,7 @@ SKIP_MECAB=${SKIP_MECAB:-}
 SKIP_MECAB_KO=${SKIP_MECAB_KO:-}
 SKIP_MTEVAL13=${SKIP_MTEVAL13:-}
 SKIP_MTEVAL14=${SKIP_MTEVAL14:-}
+SKIP_MACROF=${SKIP_MACROF:-}
 
 # test case counter
 declare -i i=0
@@ -748,5 +749,195 @@ if [[ -z $SKIP_MECAB_KO ]]; then
     done
 fi
 
+
+## From https://raw.githubusercontent.com/thammegowda/007-mt-eval-macro/master/justifs/wmt-metrics/tables/wmt-scores-2017.tsv
+#lang,name,MacroF1,MicroF1
+MACF1_WMT17="cs-en,PJATK.4760,36.0,53.8
+cs-en,online-A.0,33.0,53.7
+cs-en,online-B.0,36.5,55.9
+cs-en,uedin-nmt.4955,39.4,58.3
+de-en,C-3MA.4958,35.8,57.0
+de-en,KIT.4951,41.3,61.4
+de-en,LIUM-NMT.4733,36.9,57.6
+de-en,RWTH-nmt-ensemble.4920,39.9,60.5
+de-en,SYSTRAN.4846,40.4,60.7
+de-en,TALP-UPC.4830,36.7,57.0
+de-en,online-A.0,39.9,60.3
+de-en,online-B.0,41.1,60.8
+de-en,online-F.0,30.2,49.9
+de-en,online-G.0,36.6,56.3
+de-en,uedin-nmt.4723,41.7,61.9
+en-cs,CU-Chimera.4886,23.9,43.1
+en-cs,LIUM-FNMT.4852,23.4,42.8
+en-cs,LIUM-NMT.4947,23.5,43.0
+en-cs,PJATK.4761,20.2,38.5
+en-cs,limsi-factored-norm.4957,23.9,43.3
+en-cs,online-A.0,20.8,39.7
+en-cs,online-B.0,23.5,42.6
+en-cs,tuning-task-afrl_4gb.sgm.0,16.9,35.1
+en-cs,tuning-task-afrl_8gb.sgm.0,17.1,35.6
+en-cs,tuning-task-baseline_4gb.sgm.0,16.0,34.6
+en-cs,tuning-task-baseline_8gb.sgm.0,16.3,35.0
+en-cs,tuning-task-denisov_4gb.sgm.0,15.6,33.4
+en-cs,tuning-task-ufal_4gb.sgm.0,15.4,34.0
+en-cs,tuning-task-ufal_8gb.sgm.0,18.3,37.0
+en-cs,uedin-nmt.4956,26.3,45.7
+en-de,C-3MA.4959,25.5,48.0
+en-de,FBK.4870,30.9,52.1
+en-de,KIT.4950,28.6,51.0
+en-de,LIUM-NMT.4900,30.2,52.2
+en-de,LMU-nmt-reranked.4934,29.5,52.1
+en-de,LMU-nmt-single.4893,28.9,51.5
+en-de,PROMT-Rule-based.4735,21.9,43.2
+en-de,RWTH-nmt-ensemble.4921,29.3,51.8
+en-de,SYSTRAN.4847,27.7,51.4
+en-de,TALP-UPC.4834,24.8,47.1
+en-de,online-A.0,25.2,47.4
+en-de,online-B.0,30.0,52.0
+en-de,online-F.0,21.6,42.1
+en-de,online-G.0,25.1,46.1
+en-de,uedin-nmt.4722,31.6,53.6
+en-de,xmu.4910,29.4,52.2
+en-fi,AaltoHnmtFlatcat.4798,16.8,35.8
+en-fi,AaltoHnmtMultitask.4873,20.4,40.0
+en-fi,HY-AH.4797,12.2,29.4
+en-fi,HY-HNMT.4961,20.4,40.1
+en-fi,HY-SMT.4882,16.7,35.4
+en-fi,TALP-UPC.4939,11.9,29.6
+en-fi,apertium-unconstrained.4769,2.0,10.8
+en-fi,jhu-nmt-lattice-rescore.4903,16.4,35.6
+en-fi,jhu-pbmt.4968,15.7,34.4
+en-fi,online-A.0,15.2,33.5
+en-fi,online-B.0,21.4,41.2
+en-fi,online-G.0,16.8,35.4
+en-lv,C-3MA.5069,14.6,33.7
+en-lv,HY-HNMT.5066,17.8,37.2
+en-lv,KIT.5062,22.0,41.6
+en-lv,LIUM-FNMT.5043,18.2,38.0
+en-lv,LIUM-NMT.5042,19.1,38.8
+en-lv,PJATK.4744,11.6,28.1
+en-lv,QT21-System-Combination.5063,22.5,41.7
+en-lv,jhu-pbmt.4969,16.7,36.0
+en-lv,limsi-factored-norm.5041,20.5,39.7
+en-lv,online-A.0,14.9,33.3
+en-lv,online-B.0,20.9,40.4
+en-lv,tilde-c-nmt-smt-hybrid.5049,23.0,42.6
+en-lv,tilde-nc-nmt-smt-hybrid.5047,24.4,43.7
+en-lv,tilde-nc-smt.5044,23.3,42.0
+en-lv,uedin-nmt.5016,20.9,40.1
+en-lv,usfd-consensus-kit.5078,20.9,40.0
+en-lv,usfd-consensus-qt21.5077,21.4,40.5
+en-ru,PROMT-Rule-based.4736,23.7,44.0
+en-ru,afrl-mitll-backtrans.4907,22.8,45.1
+en-ru,jhu-pbmt.4986,25.0,46.4
+en-ru,online-A.0,23.5,45.1
+en-ru,online-B.0,31.5,52.0
+en-ru,online-F.0,14.0,32.4
+en-ru,online-G.0,27.0,48.3
+en-ru,online-H.0,27.7,49.3
+en-ru,uedin-nmt.4756,28.6,49.9
+en-tr,JAIST.4858,16.1,32.7
+en-tr,LIUM-NMT.4953,19.1,36.3
+en-tr,jhu-nmt-lattice-rescore.4904,14.6,31.6
+en-tr,jhu-pbmt.4970,14.5,31.5
+en-tr,online-A.0,17.4,34.5
+en-tr,online-B.0,25.4,43.0
+en-tr,online-G.0,20.7,37.7
+en-tr,uedin-nmt.4932,19.0,37.2
+en-zh,CASICT-DCU-NMT.5157,41.2,60.0
+en-zh,Oregon-State-University-S.5174,34.8,56.0
+en-zh,SogouKnowing-nmt.5131,47.2,63.7
+en-zh,UU-HNMT.5134,32.9,54.0
+en-zh,jhu-nmt.5153,39.8,60.0
+en-zh,online-A.0,44.8,59.2
+en-zh,online-B.0,46.9,62.1
+en-zh,online-F.0,36.0,52.5
+en-zh,online-G.0,40.7,55.5
+en-zh,uedin-nmt.5111,47.6,64.4
+en-zh,xmunmt.5165,45.7,64.4
+fi-en,Hunter-MT.4925,22.4,47.4
+fi-en,TALP-UPC.4937,19.9,43.6
+fi-en,apertium-unconstrained.4793,21.2,33.5
+fi-en,online-A.0,29.2,51.3
+fi-en,online-B.0,34.5,56.7
+fi-en,online-G.0,32.0,52.7
+lv-en,C-3MA.5067,18.9,41.3
+lv-en,Hunter-MT.5092,22.4,44.9
+lv-en,PJATK.4740,17.9,38.9
+lv-en,jhu-pbmt.4980,23.1,45.3
+lv-en,online-A.0,25.1,45.6
+lv-en,online-B.0,29.6,50.6
+lv-en,tilde-c-nmt-smt-hybrid.5051,24.9,47.8
+lv-en,tilde-nc-nmt-smt-hybrid.5050,29.8,50.9
+lv-en,uedin-nmt.5017,25.5,47.5
+ru-en,NRC.4855,38.0,60.3
+ru-en,afrl-mitll-opennmt.4896,35.0,59.8
+ru-en,afrl-mitll-syscomb.4905,37.3,60.8
+ru-en,jhu-pbmt.4978,36.3,58.6
+ru-en,online-A.0,34.5,58.1
+ru-en,online-B.0,41.9,63.3
+ru-en,online-F.0,24.9,46.7
+ru-en,online-G.0,42.2,61.8
+ru-en,uedin-nmt.4890,34.6,57.5
+tr-en,JAIST.4859,24.8,44.7
+tr-en,LIUM-NMT.4888,26.1,47.4
+tr-en,PROMT-SMT.4737,28.6,47.7
+tr-en,afrl-mitll-m2w-nr1.4901,26.1,47.3
+tr-en,afrl-mitll-syscomb.4902,26.8,47.9
+tr-en,jhu-pbmt.4972,23.0,44.2
+tr-en,online-A.0,33.2,53.4
+tr-en,online-B.0,37.0,56.3
+tr-en,online-G.0,30.2,50.6
+tr-en,uedin-nmt.4931,27.9,50.0
+zh-en,CASICT-DCU-NMT.5144,29.7,50.3
+zh-en,NMT-Model-Average-Multi-Cards.5099,26.2,46.6
+zh-en,NRC.5172,32.4,52.7
+zh-en,Oregon-State-University-S.5173,25.0,46.9
+zh-en,PROMT-SMT.5125,29.1,47.7
+zh-en,ROCMT.5183,27.9,48.9
+zh-en,SogouKnowing-nmt.5171,35.1,54.2
+zh-en,UU-HNMT.5162,23.9,44.6
+zh-en,afrl-mitll-opennmt.5109,28.7,49.7
+zh-en,jhu-nmt.5151,27.4,48.6
+zh-en,online-A.0,32.9,53.0
+zh-en,online-B.0,40.8,57.8
+zh-en,online-F.0,23.2,42.6
+zh-en,online-G.0,27.0,45.9
+zh-en,uedin-nmt.5112,33.8,53.4
+zh-en,xmunmt.5160,33.5,53.8"
+
+if [ -z $SKIP_MACROF ]; then
+  echo "----------------------------"
+  echo "Testing MacroF1 and MicroF1"
+  echo "----------------------------"
+  wmt17dir=wmt17-submitted-data/txt/system-outputs/newstest2017
+  echo "$MACF1_WMT17" |
+    # shuf | head -30 |   # uncomment to run random 30 tests only
+    tr ',' ' ' |
+    while read pair name macf1_tru micf1_tru; do
+      hyp=$wmt17dir/$pair/newstest2017.$name.$pair
+      
+      if [[ ! -z $limit_test && "$limit_test" != "$pair $name" ]]; then continue; fi
+
+      #for chinese, use chinese tokenizer
+      [[ "$pair" =~ .*-zh ]] && tokr='--tokenize zh' || tokr=''
+      macf1_got=$(${CMD} -m macrof -l $pair -t wmt17 -b $tokr < $hyp)
+      python -c "import sys; sys.exit(1 if abs(${macf1_got}-${macf1_tru}) > 0.01 else 0)"
+      if [[ $? -eq 1 ]]; then
+          echo "FAILED MacroF1 test $hyp (wanted ${macf1_tru} got $macf1_got)"
+          exit 1
+      fi
+
+      micf1_got=$(${CMD} -m microf -l $pair -t wmt17 -b $tokr < $hyp)
+      python -c "import sys; sys.exit(1 if abs(${micf1_got}-${micf1_tru}) > 0.01 else 0)"
+      if [[ $? -eq 1 ]]; then
+          echo "FAILED MicroF1 test $hyp (wanted ${micf1_tru} got $micf1_got)"
+          exit 1
+      fi
+      echo "Pass: wmt17/$pair/$name MacroF1: $macf1_got == $macf1_tru || MicroF1 $micf1_got == $micf1_tru"
+      let i++
+    done
+fi
+####=============
 echo "Passed $i tests."
 exit 0

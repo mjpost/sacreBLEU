@@ -219,6 +219,14 @@ TER related arguments (The defaults replicate TERCOM's behavior):
   --ter-asian-support   Enables special treatment of Asian characters (Default: False)
   --ter-no-punct        Removes punctuation. (Default: False)
   --ter-normalized      Applies basic normalization and tokenization. (Default: False)
+
+MacroF and MicroF related arguments (the defaults replicate Gowda et al NAACL 2021):
+  --f-beta F_BETA       Determine the importance of recall w.r.t precision. (Default: 1)
+  --f-lowercase         Enable case-insensitivity. (Default: False)
+  --f-tokenize {none,zh,13a,char,intl,ja-mecab}
+                        Tokenization method to use for Macro and MicroF, same as BLEU --tokenize. (Default: None)
+  --f-smooth-value F_SMOOTH_VALUE
+                        The smoothing value. only add-k smoothing method is supported for MacroF and MicroF (Default: 1)
 ```
 
 ### Version Signatures
