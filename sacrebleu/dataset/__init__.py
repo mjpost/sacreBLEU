@@ -149,17 +149,9 @@ DATASETS = {
             "en-zh": ["wmt22-news-systems-1.1/xml/wmttest2022.en-zh.all.xml"],
             "fr-de": ["wmt22-news-systems-1.1/xml/wmttest2022.fr-de.all.xml"],
             "ja-en": ["wmt22-news-systems-1.1/xml/wmttest2022.ja-en.all.xml"],
-            "liv-en": {
-                "path": "wmt22-news-systems-1.1/xml/wmttest2022.liv-en.all.xml",
-                # no translator because data is English-original
-                "refs": [""],
-            },
+            "liv-en": ["wmt22-news-systems-1.1/xml/wmttest2022.liv-en.all.xml"],
             "ru-en": ["wmt22-news-systems-1.1/xml/wmttest2022.ru-en.all.xml"],
-            "ru-sah": {
-                "path": "wmt22-news-systems-1.1/xml/wmttest2022.ru-sah.all.xml",
-                # no translator because data is Yakut-original
-                "refs": [""],
-            },
+            "ru-sah": ["wmt22-news-systems-1.1/xml/wmttest2022.ru-sah.all.xml"],
             "sah-ru": ["wmt22-news-systems-1.1/xml/wmttest2022.sah-ru.all.xml"],
             "uk-cs": ["wmt22-news-systems-1.1/xml/wmttest2022.uk-cs.all.xml"],
             "uk-en": ["wmt22-news-systems-1.1/xml/wmttest2022.uk-en.all.xml"],

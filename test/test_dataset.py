@@ -99,11 +99,6 @@ def test_wmt22_references():
     # make sure ref:B is the one used by default
     assert wmt22._get_langpair_allowed_refs("cs-en") == ["ref:B"]
 
-    # similar check for another dataset: there should be no default ("A"),
-    # and the only ref found should be the unannotated one
-    assert "ref:A" not in wmt22.fieldnames("liv-en")
-    assert "ref" in wmt22.fieldnames("liv-en")
-
     # and that ref:A is the default for all languages where it wasn't overridden
     for langpair, langpair_data in wmt22.langpairs.items():
         if isinstance(langpair_data, dict):

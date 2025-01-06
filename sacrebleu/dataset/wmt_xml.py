@@ -38,12 +38,11 @@ class WMTXMLDataset(Dataset):
         tree = ET.parse(raw_file)
         # Find and check the documents (src, ref, hyp)
         src_langs, ref_langs, translators = set(), set(), set()
-        for src_doc in tree.getroot().findall(".//src"):
+        for src_doc, ref_doc in zip(tree.getroot().findall(".//src"), tree.getroot().findall(".//ref")):
             src_langs.add(src_doc.get("lang"))
-
-        for ref_doc in tree.getroot().findall(".//ref"):
             ref_langs.add(ref_doc.get("lang"))
-            translator = ref_doc.get("translator")
+            # the "translator" keywords are in "src" instead of "ref" sometimes. "wmt21/dev is-en" for example.
+            translator = ref_doc.get("translator", src_doc.get("translator"))
             translators.add(translator)
 
         assert (
@@ -80,10 +79,13 @@ class WMTXMLDataset(Dataset):
                 }
 
             ref_docs = doc.findall(".//ref")
+            src_docs = doc.findall(".//src")
 
-            trans_to_ref = {
-                ref_doc.get("translator"): get_sents(ref_doc) for ref_doc in ref_docs
-            }
+            trans_to_ref = {}
+            for src_doc, ref_doc in zip(src_docs, ref_docs):
+                # the "translator" keywords are in "src" instead of "ref" sometimes. "wmt21/dev is-en" for example.
+                translator = ref_doc.get("translator", src_doc.get("translator"))
+                trans_to_ref[translator] = get_sents(ref_doc)
 
             hyp_docs = doc.findall(".//hyp")
             hyps = {
